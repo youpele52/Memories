@@ -3,12 +3,14 @@ import mongoose from 'mongoose' //to create module of our posts
 import express from 'express' // for creating the routing of our app
 import bodyParser from 'body-parser' // will us enable send post request
 import cors from 'cors' //  will enable cross origin request
-// require('dotenv').config() //hiding sensitive info like password
+import dotenv from 'dotenv' //hiding sensitive info like password
 
 import postRoutes from './routes/posts.js'
 
 // initialise the app
 const app = express()
+
+dotenv.config()
 
 // using express middleware to connect our routes to our app
 app.use('/posts', postRoutes) // every routes inside of postRoutes is going to start with /posts
@@ -22,10 +24,9 @@ app.use(cors())
 // cloud mongodb will be used
 //  https://www.mongodb.com/cloud/atlas
 
-const CONNECTION_URL =
-  'mongodb+srv://youpele52:just52ice@cluster0.b26jv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const CONNECTION_URL = process.env.CONNECTION_URL
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT
 
 mongoose
   .connect(CONNECTION_URL, {
