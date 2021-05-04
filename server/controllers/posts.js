@@ -17,8 +17,9 @@ export const getPosts = async (req, res) => {
 
 // creating posts
 export const createPosts = async (req, res) => {
+  // takes in the body of post
   const post = req.body
-
+  // and adds it to our database in mongodb PostMessage
   const newPost = new PostMessage(post)
   try {
     await newPost.save()

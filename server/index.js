@@ -12,22 +12,21 @@ const app = express()
 
 dotenv.config()
 
-// using express middleware to connect our routes to our app
-app.use('/posts', postRoutes) // every routes inside of postRoutes is going to start with /posts
-
 // setting up our body parser so that we can send a request
 app.use(bodyParser.json({ limit: '30mb', extended: true })) //'30mb' limits the size of our images
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 
-app.use(cors())
+app.use(cors()) // this code line always has to be above this one app.use('/posts', postRoutes)
+// using express middleware to connect our routes to our app
+app.use('/posts', postRoutes) // every routes inside of postRoutes is going to start with /posts
 
 // cloud mongodb will be used
 //  https://www.mongodb.com/cloud/atlas
-
 const CONNECTION_URL = process.env.CONNECTION_URL
 
 const PORT = process.env.PORT
 
+// mongoose
 mongoose
   .connect(CONNECTION_URL, {
     useNewUrlParser: true,
