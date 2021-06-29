@@ -1,12 +1,17 @@
 import mongoose from 'mongoose'
 
-// creating a mongoose schema for each post
+// creating a  mongoose Schema
 const postSchema = mongoose.Schema({
-  title: String,
+  creator: {
+    type: String,
+    required: true,
+  },
+  title: {
+    required: true,
+    type: String,
+  },
   message: String,
-  creator: String,
   tags: [String],
-  //we are going to convert an image into a string using base64 package
   selectedFile: String,
   likeCount: {
     type: Number,
@@ -18,8 +23,9 @@ const postSchema = mongoose.Schema({
   },
 })
 
-// converting our schema into a model
-const PostMessage = mongoose.model('PostMessage', postSchema)
+// creating mongoose model from the created mongoose schema
+// 'MemoriesPostMessage' will/is the name of the collection in the mongo database we connected to this app
+const PostMessage = mongoose.model('MemoriesPostMessage', postSchema)
 
-// exporting the mongoose model
+// exporting mongoose model
 export default PostMessage
