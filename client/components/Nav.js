@@ -5,7 +5,7 @@ import {
   BadgeCheckIcon,
   CollectionIcon,
   HomeIcon,
-  SearchIcon,
+  DocumentAddIcon,
   UserIcon,
   ChatAlt2Icon,
 } from '@heroicons/react/outline'
@@ -18,7 +18,7 @@ function Nav() {
   const router = useRouter()
   return (
     <header className='flex flex-col sm:flex-row m-5 justify-between items-center h-auto'>
-      <div className='mb-6'>
+      <div className='mb-6 cursor-pointer' onClick={() => router.push('/')}>
         <Image
           className='object-contain '
           src={memory}
@@ -39,7 +39,7 @@ function Nav() {
           <NavItem title='COLLECTIONS' Icon={CollectionIcon} />
         </div>
 
-        <div onClick={() => router.push('/about')}>
+        <div onClick={() => router.push('/account')}>
           <NavItem title='ACCOUNT' Icon={UserIcon} />
         </div>
       </div>

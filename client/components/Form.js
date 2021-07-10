@@ -3,7 +3,15 @@ import { useApiContext } from '../context/ApiContext'
 import FileBase from 'react-file-base64'
 
 function Form() {
-  const { createPost, fetchPosts, url } = useApiContext()
+  const {
+    createPost,
+    fetchPosts,
+    url,
+    currentId,
+    setCurrentId,
+    posts,
+    updatePost,
+  } = useApiContext()
   // console.log(createPost)
   const [postData, setPostData] = useState({
     creator: '',
@@ -12,11 +20,26 @@ function Form() {
     tags: '',
     selectedFile: '',
   })
-  const clear = () => {}
+
+  const post = posts.find((post) => post._id === currentId)
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    createPost(postData)
+
+    if (currentId) {
+      console.log('Before')
+      console.log(post)
+      updatePost(currentId, postData)
+      console.log('After')
+      console.log(postData)
+    } else {
+      createPost(postData)
+    }
     fetchPosts(url)
+    // window.location.reload(false)
+    clear()
+  }
+  const clear = () => {
     setPostData({
       creator: '',
       title: '',
@@ -24,13 +47,20 @@ function Form() {
       tags: '',
       selectedFile: '',
     })
+    setCurrentId(null)
   }
-  useEffect(() => {}, [handleSubmit])
+
+  useEffect(() => {
+    if (post) {
+      setPostData(post)
+    }
+  }, [post])
+
   return (
-    <div className='px-5  py-10 '>
+    <div className=' py-10 pr-12'>
       <div className='grid justify-items-end'>
         {/* <h1 className=''>Creating a Memory </h1> */}
-        <form className='w-full max-w-lg ' action='' onSubmit={handleSubmit}>
+        <form className='w-full max-w-lg ' onSubmit={handleSubmit}>
           <div className='flex flex-wrap -mx-3 mb-6'>
             <div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
               <FileBase
@@ -97,7 +127,7 @@ function Form() {
                 placeholder='fun, holiday'
                 value={postData.tags}
                 onChange={(e) =>
-                  setPostData({ ...postData, tags: e.target.value })
+                  setPostData({ ...postData, tags: e.target.value.split(',') })
                 }
               />
             </div>
@@ -137,7 +167,7 @@ function Form() {
               type='submit'
               onClick={handleSubmit}
             >
-              Add a Memory
+              {currentId ? 'Edit Memory' : 'Add a Memory'}
             </button>
           </div>
         </form>

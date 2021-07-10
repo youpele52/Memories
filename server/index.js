@@ -20,6 +20,10 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 // interpreted as http://localhost:5000/posts
 app.use('/posts', postRoutes)
 
+app.get('/', (req, res) => {
+  res.send('Welcome to Memories API')
+})
+
 const CONNECTION_URL = process.env.CONNECTION_URL
 
 const PORT = process.env.PORT || 5000

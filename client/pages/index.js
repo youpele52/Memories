@@ -21,10 +21,10 @@ export default function Home() {
         />
       </Head>
       <Nav />
-      <main className=' px-5 my-10 grid sm:grid md:grid-cols-2 justify-center'>
-        <Posts className='my-10' />
+      <main className=' px-5 my-10 grid sm:grid md:grid-cols-2 '>
+        {/* <div className=''>Add a Memory </div> */}
         <Form className='' />
-        {/* <img src='/vercel.svg' alt='' /> */}
+        <Posts className='my-10 sm:pr-5 ' />
       </main>
     </div>
   )
