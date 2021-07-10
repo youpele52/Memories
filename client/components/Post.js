@@ -30,8 +30,8 @@ const Post = forwardRef(({ post }, ref) => {
 
   const deleteThisPost = () => {
     deletePost(_id)
-    fetchPosts(url)
     window.location.reload(false)
+    fetchPosts(url)
   }
 
   // console.log(currentId)
@@ -69,8 +69,8 @@ const Post = forwardRef(({ post }, ref) => {
               <p>{message}</p>
             </div>
             <p className='border-t border-gray-light pt-2 text-xs text-gray-400 hover:text-blue-400 '>
-              #{tags}
-              {/* {tags.map((tag) => `#${tag} `)} */}
+              {/* #{tags} */}
+              {tags.map((tag) => `#${tag} `)}
             </p>
             <div className='pt-2 px-2 flex justify-between'>
               <div
